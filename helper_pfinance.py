@@ -2,7 +2,7 @@ from init_pfinance import MonthlyBudget, csv_read, csv_write
 
 
 def main():
-	# Initializing the MonthlyBudget object where expenses (Item objects) will be 'written to'
+	# Initializing the MonthlyBudget object where expenses (Item objects) will be written to
 	Mar_2023 = MonthlyBudget("March_2023")
 
 	# Using the input csv (Mar2023.csv) to write expenses to MonthlyBudget object
