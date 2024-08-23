@@ -10,10 +10,10 @@ Full webapp with frontend is coming soon!
 
 ## Table of Contents
 
--[Introduction](#introduction)
--[Purpose](#purpose)
--[Features](#features)
--[Classes & Functions](#classes--functions)
+- [Introduction](#introduction)
+- [Purpose](#purpose)
+- [Features](#features)
+- [Classes & Functions](#classes--functions)
 
 ## Introduction
 
