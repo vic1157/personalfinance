@@ -82,7 +82,7 @@ class MonthlyBudget:
 
 		B) Every category will have a list of various expenses (type Item) associated with it
 
-		C) Every category will have a '_list' attributes that holes the name and price of each expense (within that specific category)
+		C) Every category will have a '_list' attribute that holds the name and price of each expense (within that specific category)
 
 		The categories for each month are as follows:
 		1. sub_total = Total price for all monthly subscription expenses
@@ -271,7 +271,7 @@ class MonthlyBudget:
 
 		# Investment Summary
 		net_income = total_income - grand_total - self.crypto_total
-		total_investments = 1_456.16 + self.crypto_total
+		total_investments = float(input("Enter recurring investment contributions or enter 0.00 (no contributions)")) + self.crypto_total
 		total_invest = net_income + total_investments
 
 		# Net Worth
@@ -301,6 +301,12 @@ class MonthlyBudget:
 		)
 
 def csv_read(input_file, MonthlyBudget):
+	'''
+		Takes CSV file, reads contents (line by line) and appends transaction (Item type) to category (key).
+
+		1. Function checks if csv file is currently being assessed (system will exit if not)
+		2. 
+	'''
 	variable_names = {}
 	count = -1
 
@@ -327,6 +333,12 @@ def csv_read(input_file, MonthlyBudget):
 						print(price)
 					except ValueError:
 						raise ValueError("You must work with a numerical type")
+				else:
+					try:
+						price = float(input("Enter price of transaction: "))
+					except ValueError:
+						raise ValueError("You must work with a numerical type")
+
 
 				break_loop = input("Do you want to stop auditing expenses? (Y/N): ").strip().upper()
 				if break_loop == 'Y':
@@ -349,7 +361,7 @@ def csv_read(input_file, MonthlyBudget):
 					variable_names[variable_name].price += price
 				else:
 					variable_names[variable_name] = Item(name, price)
-					category_name = input("Enter the category of Item instance: ")
+					category_name = input("Enter the category of Item instance (['Sub', 'Invest', 'Travel', 'Food', 'Home', 'Crypto'] - each category not set to list categories is categorized as 'Misc' by default): ")
 					MonthlyBudget.categorize(variable_names[variable_name], category_name)
 
 
@@ -376,42 +388,42 @@ def csv_write(MonthlyBudget):
 	try:
 		mode = input("Please enter the writing mode for this file (a/w): ").strip().lower()
 
-		with open('sample.csv', mode, newline='') as csvfile:
+		if mode in ['a', 'w']:
+			with open(input('Enter file_name.csv: '), mode, newline='') as csvfile:
 
-			field_names = ['Item', 'Price']
+				field_names = ['Item', 'Price']
 
-			print_expenses = csv.DictWriter(csvfile, field_names)
-			print_header = csv.writer(csvfile)
+				print_expenses = csv.DictWriter(csvfile, field_names)
+				print_header = csv.writer(csvfile)
 
-			append = input('Are you appending this file? (Y/N): ').strip().upper()
+				append = input('Are you appending this file? (Y/N): ').strip().upper()
 
-			# Do not write the header if you've already gotten started with the file
-			if append == 'Y':
-				pass
-			else:
-				print_header.writerow(['March 2023'])
+				# Do not write the header if you've already gotten started with the file
+				if append == 'Y':
+					pass
+				else:
+					print_header.writerow([input('Format - Month YYYY (ex. March 2023) ')])
 
-			for i in range(len(categories)):
+				for i in range(len(categories)):
 
-				# If you have already written to the file for a specific category, you can skip that category
-				print(f"You are writing {categories[i]} to 'sample.csv'")
+					# If you have already written to the file for a specific category, you can skip that category
+					print(f"You are writing {categories[i]} to 'sample.csv'")
 
-				skip = input('Do you wish to skip this category? (Y/N): ').strip().upper()
-				if skip == 'Y':
-					continue
+					skip = input('Do you wish to skip this category? (Y/N): ').strip().upper()
+					if skip == 'Y':
+						continue
+					
+					# Takes each category and lists related expenses
+					print_header.writerow([categories[i]])
+					print_expenses.writerows(category_directory[categories[i]][0])
 
-				print_header.writerow([categories[i]])
-				print_expenses.writerows(category_directory[categories[i]][0])
+					# I believe this should be a blank row
+					print_header.writerow(blank_row)
 
-				# I believe this should be a blank row
-				print_header.writerow(blank_row)
+					print_header.writerow(['Total', category_directory[categories[i]][1]])
 
-				print_header.writerow(['Total', category_directory[categories[i]][1]])
-
-				# I believe this should be a blank row (to seperate the expenses for categories within the CSV)
-				print_header.writerow(blank_row)
-				print_header.writerow(blank_row)
-
-				# See if you can tabulate - I believe you can only do this per category
+					# I believe this should be a blank row (to seperate the expenses for categories within the CSV)
+					print_header.writerow(blank_row)
+					print_header.writerow(blank_row)
 	except TypeError:
 		raise TypeError("You ran into an issue while writing to the file")
