@@ -8,6 +8,13 @@ Full webapp with frontend is coming soon!
 
 **Disclaimer: You must have Python 3.10 or later to run this script!**
 
+## Table of Contents
+
+-[Introduction](#introduction)
+-[Purpose](#purpose)
+-[Features](#features)
+-[Classes & Functions](#classes--functions)
+
 ## Introduction
 
 Keeping track of expenses can be daunting, however, there are solutions that exist to make budgeting 'seamless' ([You Need A Budget](https://www.ynab.com/), [Mint](https://www.creditkarma.com/lp/mint-to-credit-karma-net-worth-signup), [Monarch Money](https://www.monarchmoney.com/), etc). With everything in life, there are tradeoffs involved with the available decisions.
