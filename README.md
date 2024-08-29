@@ -10,10 +10,15 @@ Full webapp with frontend is coming soon!
 
 ## Table of Contents
 
+- [Key Commit(s)](#key-commits)
 - [Introduction](#introduction)
 - [Purpose](#purpose)
 - [Features](#features)
 - [Classes & Functions](#classes--functions)
+
+## Key Commits
+
+1. [Pfinance Script Upload](https://github.com/vic1157/personalfinance/commit/715aeea2f729a59d35bd0614e1a9296105e18500)
 
 ## Introduction
 
